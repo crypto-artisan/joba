@@ -26,7 +26,7 @@ export default function AppService() {
                 <Separator className="my-2" />
                 {
                     user.services.map((service, index) => (
-                        <>
+                        <div key={index}>
                             <div className="flex flex-col md:flex-row gap-4 md:gap-0 justify-between">
                                 <div className="flex-1 flex flex-col gap-2">
                                     <Label className="text-[20px] font-medium">{service.title}</Label>
@@ -53,7 +53,7 @@ export default function AppService() {
                             {
                                 index + 1 !== user.services.length && <Separator className="my-2" />
                             }
-                        </>
+                        </div>
                     ))
                 }
             </CardContent>

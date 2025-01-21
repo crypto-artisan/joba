@@ -13,8 +13,17 @@ import {
 import { Discover } from "@/config";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useAccount } from "wagmi";
 
 export default function Credentials() {
+
+    const { address } = useAccount();
+
+    useEffect(() => {
+        
+    }, [address]);
+
     return (
         <div className="w-full pb-16">
             <div className="flex flex-col gap-2 py-8">

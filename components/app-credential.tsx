@@ -49,8 +49,8 @@ export default function AppCredential() {
                                 const Badge_img = (Badge_Icon as any)[Badge_name];
 
                                 return (
-                                    <div className="h-16">
-                                        <Badge_img.icon key={index} />
+                                    <div key={index} className="h-16">
+                                        <Badge_img.icon />
                                     </div>
                                 )
                             })

@@ -13,11 +13,13 @@ import { Button } from "./ui/button";
 import { UserNav } from "./app-user-nav";
 import { usePathname } from "next/navigation";
 import { AppMobileNavbar } from "./app-mobile-navbar";
+import { useAccount } from "wagmi";
 
 
 export default function AppTopbar() {
 
     const path = usePathname();
+    const { isConnected } = useAccount();
 
     return (
         <div className="flex flex-row w-full items-center justify-between p-4 border-b-[1px] border-b-neutral-200">
@@ -42,8 +44,16 @@ export default function AppTopbar() {
                 <Button variant={'ghost'} size={'icon'} className="h-10">
                     <NotifyIcon size={24} />
                 </Button>
-                <UserNav className="hidden md:flex" />
-                <AppMobileNavbar className="flex md:hidden" />
+                {
+                    isConnected ? (
+                        <>
+                            <AppMobileNavbar className="flex md:hidden" />
+                            <UserNav className="hidden md:flex" />
+                        </>
+                    ) : (
+                        <w3m-button />
+                    )
+                }
             </div>
         </div>
     )
