@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -13,15 +15,53 @@ import {
 import { Discover } from "@/config";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
+
+const talentApiKey = process.env.NEXT_PUBLIC_TALENT_API_KEY || '';
+
+const PASSPORT_URL = process.env.NEXT_PUBLIC_TALENT_PASSPORT_URL || '';
+const CREDENTIAL_URL = process.env.NEXT_PUBLIC_TALENT_CREDENTIAL_URL || '';
+
+const options = {
+    method: "GET",
+    headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": talentApiKey,
+    },
+};
 
 export default function Credentials() {
 
     const { address } = useAccount();
 
+    const [passport, setPassport] = useState<any>(null);
+    const [credentials, setCredentials] = useState(null);
+
+    async function fetchCredentials(id: number) {
+
+        fetch(`${CREDENTIAL_URL}?passport_id=${id}`, options)
+            .then(response => (response.json()))
+            .then(async (json) => {
+                setCredentials(json?.passport_credentials);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
     useEffect(() => {
-        
+        if (address) {
+            fetch(`${PASSPORT_URL}/${address}`, options)
+                .then(response => (response.json()))
+                .then(async (json) => {
+                    setPassport(json?.passport);
+                    await fetchCredentials(json?.passport?.passport_id);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
     }, [address]);
 
     return (
