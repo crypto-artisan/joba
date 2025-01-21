@@ -18,7 +18,7 @@ export default function AppProfile() {
     const { user, isShared } = useUserContext();
 
     return (
-        <Card className="w-full xl:w-[446px] min-w-[350px] border border-[#D09AC6] bg-[#D09AC61A] md:h-[486px]">
+        <Card className="w-full xl:w-[446px] min-w-[350px] border border-[#D09AC6] bg-[#D09AC61A]">
             {/* <CardHeader className="flex flex-col gap-2 items-center bg-gradient-to-bl from-[#4C5ACD2A] from-35% via-[#F598AA2A] via-56% to-62% to-[#FDDFD0] backdrop-opacity-5 justify-center rounded-t-xl"> */}
             <CardHeader className="flex flex-col gap-2 items-center justify-center rounded-t-xl">
                 <div className="flex relative">

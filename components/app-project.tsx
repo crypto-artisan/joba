@@ -20,7 +20,7 @@ export default function AppProject() {
     return (
         <Card className="w-full py-0 px-5">
             <CardHeader className="px-0 py-4">
-                <CardTitle>Projects</CardTitle>
+                <CardTitle className="text-[18px] text-foreground">Projects</CardTitle>
             </CardHeader>
             <Separator />
             <CardContent className="px-0 py-6">
