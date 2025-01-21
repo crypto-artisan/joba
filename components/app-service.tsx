@@ -40,7 +40,7 @@ export default function AppService() {
                                         }
                                     </div>
                                 </div>
-                                <div className="flex md:flex-row flex-col gap-2 items-center">
+                                <div className="flex md:flex-row flex-col gap-6 md:gap-2 md:items-center">
                                     <div className="flex-1 flex flex-col justify-center md:items-end">
                                         <Label className="text-[#71808E] font-medium text-[12px] md:text-[14px]">{service.price.type}</Label>
                                         <Label className="text-foreground font-medium text-[16px] md:text-[20px]">{service.price.currency} {service.price.value.toLocaleString()}{service.price.type === 'FIXED RATE' && '/hr'}</Label>
