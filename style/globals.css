@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Gopher";
+  src: url("/fonts/Gopher-Regular.woff") format("woff");
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --foreground: #272D37;
+    --secondary: #175CD3;
+    --background: #555;
+    --text-gray: #858D9D;
+
+    --scrollbar-track-background: hsl(0, 0%, 95%);
+    --scrollbar-thumb-background: hsl(0, 0%, 70%);
+    --scrollbar-thumb-hover: hsl(0, 0%, 80%);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-background);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
