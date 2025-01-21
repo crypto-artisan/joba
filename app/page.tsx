@@ -17,7 +17,7 @@ export default function Home() {
                     >
                         Go to Profile
                     </Link> */}
-                    <Label className="text-[36px]">Welcome to our Joba!</Label>
+                    <Label className="text-[24px] md:text-[36px] text-secondary">Welcome to our Joba!</Label>
                 </div>
             </div>
         </AppMainLayout>
