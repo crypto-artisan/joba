@@ -12,7 +12,7 @@ import { Button } from "./ui/button";
 import { Contact_Icon } from "@/config";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
-import { CircleIcon, DotIcon } from "lucide-react";
+import { CircleIcon } from "lucide-react";
 
 export default function AppProfile() {
     const { user, isShared } = useUserContext();

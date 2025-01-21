@@ -22,7 +22,7 @@ export default function Profile() {
     }, [])
 
     const handleCopy = () => {
-        navigator.clipboard.writeText('https://joba.vercel.app/share/1234-5678')
+        navigator.clipboard.writeText('https://joba-rho.vercel.app/share/1234-5678')
             .then(() => {
                 setCopied(true);
                 setTimeout(() => {
