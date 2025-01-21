@@ -8,18 +8,23 @@ import { createContext, useContext, useState } from 'react';
 export const UserContext = createContext<{
     user: IUser;
     setUser: React.Dispatch<React.SetStateAction<IUser>>;
+    isShared: boolean;
+    setIsShared: React.Dispatch<React.SetStateAction<boolean>>;
 }>({
     user: UserData,
     setUser: () => { },
+    isShared: false,
+    setIsShared: () => { }
 });
 
 // Define the provider component
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [user, setUser] = useState<IUser>(UserData);
+    const [isShared, setIsShared] = useState<boolean>(false);
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, isShared, setIsShared }}>
             {children}
         </UserContext.Provider>
     );

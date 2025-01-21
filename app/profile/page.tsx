@@ -1,3 +1,5 @@
+'use client'
+
 import AppAbility from "@/components/app-ability";
 import AppCredential from "@/components/app-credential";
 import AppHighlight from "@/components/app-highlight";
@@ -7,8 +9,31 @@ import AppService from "@/components/app-service";
 import { EditIcon, ShareIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { useUserContext } from "@/providers/user-provider";
+import { CheckIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function Profile() {
+    const { setIsShared } = useUserContext();
+    const [copied, setCopied] = useState<boolean>(false);
+
+    useEffect(() => {
+        setIsShared(false);
+    }, [])
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText('https://joba.vercel.app/share/1234-5678')
+            .then(() => {
+                setCopied(true);
+                setTimeout(() => {
+                    setCopied(false);
+                }, 1000);
+            })
+            .catch(err => {
+                console.error('Failed to copy text: ', err)
+            })
+    }
+
     return (
         <div className="w-full">
             <div className="flex flex-row justify-between items-center py-8">
@@ -18,9 +43,11 @@ export default function Profile() {
                         <EditIcon size={16} />
                         <span className="text-[14px] font-medium">Edit profile</span>
                     </Button>
-                    <Button variant={'outline'} className="bg-gradient-to-r from-blue-500 via-blue-500 to-purple-500 text-white hover:text-secondary">
-                        <ShareIcon size={16} />
-                        <span>Share</span>
+                    <Button variant={'outline'} className="bg-gradient-to-r from-blue-500 via-blue-500 to-purple-500 text-white hover:text-secondary"
+                        onClick={handleCopy}
+                    >
+                        {copied ? <CheckIcon size={16} /> : <ShareIcon size={16} />}
+                        <span>{copied ? 'Copied' : 'Share'}</span>
                     </Button>
                 </div>
             </div>

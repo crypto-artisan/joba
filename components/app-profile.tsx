@@ -11,9 +11,11 @@ import { BEGINNERImage, CalendarIcon, RankPolygon, TieIcon } from "./icons";
 import { Button } from "./ui/button";
 import { Contact_Icon } from "@/config";
 import Link from "next/link";
+import { Badge } from "./ui/badge";
+import { CircleIcon, DotIcon } from "lucide-react";
 
 export default function AppProfile() {
-    const { user } = useUserContext();
+    const { user, isShared } = useUserContext();
 
     return (
         <Card className="w-full xl:w-[446px] min-w-[350px] border border-[#D09AC6] bg-[#D09AC61A] md:h-[486px]">
@@ -26,6 +28,7 @@ export default function AppProfile() {
                     </div>
                 </div>
                 <Label className="text-[20px] text-foreground">{user.userName}</Label>
+                {isShared && <Badge className="border border-[#ABEFC6] bg-[#ECFDF3] text-[#17B26A] text-[12px] rounded-lg"><CircleIcon size={8} color="#17B26A" fill="#17B26A" />&nbsp; Available for work</Badge>}
                 <Separator className="bg-neutral-300" />
             </CardHeader>
             <CardContent className="py-1">

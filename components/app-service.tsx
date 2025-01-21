@@ -12,9 +12,10 @@ import { Label } from "@/components/ui/label"
 import { useUserContext } from "@/providers/user-provider"
 import { Badge } from "./ui/badge"
 import { Separator } from "./ui/separator"
+import { Button } from "./ui/button"
 
 export default function AppService() {
-    const { user } = useUserContext();
+    const { user, isShared } = useUserContext();
 
     return (
         <Card className="w-full py-6 px-5">
@@ -39,9 +40,14 @@ export default function AppService() {
                                         }
                                     </div>
                                 </div>
-                                <div className="flex-1 flex flex-col justify-between md:items-end">
-                                    <Label className="text-[#71808E] font-medium text-[12px] md:text-[14px]">{service.price.type}</Label>
-                                    <Label className="text-foreground font-medium text-[16px] md:text-[20px]">{service.price.currency} {service.price.value.toLocaleString()}{service.price.type === 'FIXED RATE' && '/hr'}</Label>
+                                <div className="flex md:flex-row flex-col gap-2 items-center">
+                                    <div className="flex-1 flex flex-col justify-center md:items-end">
+                                        <Label className="text-[#71808E] font-medium text-[12px] md:text-[14px]">{service.price.type}</Label>
+                                        <Label className="text-foreground font-medium text-[16px] md:text-[20px]">{service.price.currency} {service.price.value.toLocaleString()}{service.price.type === 'FIXED RATE' && '/hr'}</Label>
+                                    </div>
+                                    {isShared && <Button variant={'outline'} className="bg-gradient-to-r from-blue-500 via-blue-500 to-purple-500 text-white hover:text-secondary py-6">
+                                        Request service
+                                    </Button>}
                                 </div>
                             </div>
                             {
