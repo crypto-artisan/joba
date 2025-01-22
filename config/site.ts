@@ -1,4 +1,4 @@
-import { AIRDROPImage, BasenameImage, BEGINNERImage, BelleImage, COINSTOREImage, CradenImage, DiscordIcon, EGYPTImage, EnglishIcon, EthereumImage, FIRSTImage, FrenchIcon, GnosisImage, HardhatIcon, HolonymImage, JUNIORImage, KEYImage, LENSImage, MetaImage, OWNImage, PLANETImage, RemixIcon, SECONDImage, SENIORImage, SILVERImage, SnapShotImage, SpanishIcon, TELEGRAMImage, THIRDImage, THREEImage, TruffleIcon, WebIcon, WordIcon, XImage } from "@/components/icons"
+import { AIRDROPImage, BasenameImage, BEGINNERImage, BelleImage, BinanceIcon, COINBASEImage, CradenImage, CyberIcon, DiscordIcon, EGYPTImage, EnglishIcon, EnsIcon, EthereumImage, FarcasterIcon, FIRSTImage, FractalIcon, FrenchIcon, GalxeIcon, GitCoinIcon, GnosisImage, HardhatIcon, HolonymImage, JUNIORImage, KEYImage, LENSImage, MetaImage, OWNImage, PhaverIcon, PLANETImage, RemixIcon, SECONDImage, SENIORImage, SILVERImage, SnapShotImage, SpanishIcon, TELEGRAMImage, THIRDImage, THREEImage, TruffleIcon, WebIcon, WordIcon, XImage } from "@/components/icons"
 
 export const NavbarItems = [
     {
@@ -53,7 +53,7 @@ export const Company_Icon = {
         icon: TELEGRAMImage
     },
     'COINSTORE': {
-        icon: COINSTOREImage
+        icon: COINBASEImage
     },
     'THREE': {
         icon: THREEImage
@@ -158,7 +158,7 @@ export const Discover = [
         id: 'COINBASE',
         title: 'Coinbase Country',
         link: '#',
-        icon: COINSTOREImage,
+        icon: COINBASEImage,
         points: 15,
         description: 'Confirm your coinbase account & onchain identity',
         isDone: true
@@ -167,7 +167,7 @@ export const Discover = [
         id: 'COINBASE_Profile',
         title: 'Coinbase Profile',
         link: '#',
-        icon: COINSTOREImage,
+        icon: COINBASEImage,
         points: 20,
         description: 'Confirm your coinbase account & onchain identity',
         isDone: false
@@ -246,3 +246,39 @@ export const Discover = [
         isDone: false
     },
 ]
+
+export const Credentail_Icon = {
+    "basename": {
+        icon: BasenameImage
+    },
+    "binance_account_bound": {
+        icon: BinanceIcon
+    },
+    "coinbase_verified_id": {
+        icon: COINBASEImage
+    },
+    "cyber_id": {
+        icon: CyberIcon
+    },
+    "ens": {
+        icon: EnsIcon
+    },
+    "farcaster": {
+        icon: FarcasterIcon
+    },
+    "fractal_id": {
+        icon: FractalIcon
+    },
+    "galxe": {
+        icon: GalxeIcon
+    },
+    "gitcoin": {
+        icon: GitCoinIcon
+    },
+    "holonym": {
+        icon: HolonymImage
+    },
+    "phaver": {
+        icon: PhaverIcon
+    }
+}

@@ -1,18 +1,21 @@
 'use client'
 
+import { XImage } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
 } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
+import { Spinner } from "@/components/ui/spinner";
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs"
-import { Discover } from "@/config";
+import { Credentail_Icon, Discover } from "@/config";
+import { IPassportCredential } from "@/types/credentials";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -36,7 +39,7 @@ export default function Credentials() {
     const { address } = useAccount();
 
     const [passport, setPassport] = useState<any>(null);
-    const [credentials, setCredentials] = useState(null);
+    const [credentials, setCredentials] = useState<IPassportCredential[]>([]);
 
     async function fetchCredentials(id: number) {
 
@@ -79,8 +82,12 @@ export default function Credentials() {
                     <Button variant={'ghost'} className="rounded-none border-b-[2px] border-b-black px-0 pb-6">Discover</Button>
                     <Button variant={'ghost'} className="rounded-none px-0 pb-6" disabled>Manage</Button>
                 </div>
-                <TabsContent value="discover" className="grid grid-cols-1 md:grid-cols-4 2xl:grid-cols-5 gap-8 ring-0 focus-visible:right-0 max-w-[1600px]">
-                    {
+                {
+                    credentials.length == 0 ? (
+                        <Spinner size={32} />
+                    ) : (
+                        <TabsContent value="discover" className="grid grid-cols-1 md:grid-cols-4 2xl:grid-cols-5 gap-8 ring-0 focus-visible:right-0 max-w-[1600px]">
+                            {/* {
                         Discover.map(item => (
                             <div key={item.id} className={`border border-[#EAEBF0] p-4 bg-white rounded-xl w-full ${item.isDone && 'opacity-60'} max-w-[300px] h-[332px]`}>
                                 <div className="flex flex-col h-full gap-12 border border-[#EAEBF0] border-dashed rounded-xl p-4 justify-between">
@@ -118,8 +125,54 @@ export default function Credentials() {
                                 </div>
                             </div>
                         ))
-                    }
-                </TabsContent>
+                    } */}
+                            {
+                                credentials.filter(credential => credential.category === "Identity").map(item => {
+
+                                    const type_name = item.type;
+                                    const type_icon = Credentail_Icon[type_name];
+                                    return (
+                                        <div key={item.id} className={`border border-[#EAEBF0] p-4 bg-white rounded-xl w-full ${item.max_score === item.score && 'opacity-60'} max-w-[300px] h-[332px]`}>
+                                            <div className="flex flex-col h-full gap-12 border border-[#EAEBF0] border-dashed rounded-xl p-4 justify-between">
+                                                <section className="flex flex-row justify-between items-center">
+                                                    <type_icon.icon />
+                                                    <div className="flex flex-col justify-center items-center">
+                                                        <Label className="text-[24px] font-medium">{item.max_score}</Label>
+                                                        <Label className="text-[12px]">Points</Label>
+                                                    </div>
+                                                </section>
+
+                                                <section>
+                                                    <Label className="text-[20px] font-medium">{item.name}</Label>
+                                                    <p className="text-[14px] line-clamp-2">{item.name}</p>
+                                                </section>
+
+                                                <section>
+                                                    {
+                                                        item.max_score === item.score ? (
+                                                            <Button variant={'default'} disabled className="text-white w-full h-11">
+                                                                Done
+                                                            </Button>
+                                                        ) : (
+                                                            <Link href={"#"}>
+                                                                <Button variant={'outline'} className="bg-gradient-to-r from-blue-500 via-blue-500 to-purple-500 text-white hover:text-secondary w-full h-11">
+                                                                    {
+                                                                        (item.id === 'TELEGRAM' || item.id === 'X') ? `Connect ${item.name}` : `Get credential`
+                                                                    }
+                                                                    <ExternalLinkIcon />
+                                                                </Button>
+                                                            </Link>
+                                                        )
+                                                    }
+                                                </section>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </TabsContent>
+                    )
+                }
                 <TabsContent value="manage">
                     <Card>
                         <CardContent className="space-y-2">
