@@ -15,7 +15,7 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs"
 import { Credentail_Icon, Discover } from "@/config";
-import { IPassportCredential } from "@/types/credentials";
+import { IPassport, IPassportCredential } from "@/types/credentials";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -38,7 +38,7 @@ export default function Credentials() {
 
     const { address } = useAccount();
 
-    const [passport, setPassport] = useState<any>(null);
+    const [passport, setPassport] = useState<IPassport | null>(null);
     const [credentials, setCredentials] = useState<IPassportCredential[]>([]);
 
     async function fetchCredentials(id: number) {
@@ -86,7 +86,7 @@ export default function Credentials() {
                     credentials.length == 0 ? (
                         <Spinner size={32} />
                     ) : (
-                        <TabsContent value="discover" className="grid grid-cols-1 md:grid-cols-4 2xl:grid-cols-5 gap-8 ring-0 focus-visible:right-0 max-w-[1600px]">
+                        <TabsContent value="discover" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 ring-0 focus-visible:right-0 max-w-[1600px]">
                             {/* {
                         Discover.map(item => (
                             <div key={item.id} className={`border border-[#EAEBF0] p-4 bg-white rounded-xl w-full ${item.isDone && 'opacity-60'} max-w-[300px] h-[332px]`}>
@@ -132,7 +132,7 @@ export default function Credentials() {
                                     const type_name = item.type;
                                     const type_icon = Credentail_Icon[type_name];
                                     return (
-                                        <div key={item.id} className={`border border-[#EAEBF0] p-4 bg-white rounded-xl w-full ${item.max_score === item.score && 'opacity-60'} max-w-[300px] h-[332px]`}>
+                                        <div key={item.id} className={`border border-[#EAEBF0] p-4 bg-white rounded-xl w-full ${item.max_score === item.score && 'opacity-60'} md:max-w-[300px] h-[332px]`}>
                                             <div className="flex flex-col h-full gap-12 border border-[#EAEBF0] border-dashed rounded-xl p-4 justify-between">
                                                 <section className="flex flex-row justify-between items-center">
                                                     <type_icon.icon />
