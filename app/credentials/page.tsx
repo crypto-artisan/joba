@@ -17,6 +17,7 @@ import { Credentail_Icon, Discover } from "@/config";
 import { IPassport, IPassportCredential } from "@/types/credentials";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 
@@ -36,6 +37,7 @@ const options = {
 export default function Credentials() {
 
     const { address } = useAccount();
+    const router = useRouter();
 
     const [passport, setPassport] = useState<IPassport | null>(null);
     const [credentials, setCredentials] = useState<IPassportCredential[]>([]);
@@ -63,6 +65,9 @@ export default function Credentials() {
                 .catch((error) => {
                     console.error(error);
                 });
+        }
+        else {
+            router.push("/");
         }
     }, [address]);
 
