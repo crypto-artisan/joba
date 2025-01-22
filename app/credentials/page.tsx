@@ -1,6 +1,5 @@
 'use client'
 
-import { XImage } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
     Card,
@@ -87,45 +86,6 @@ export default function Credentials() {
                         <Spinner size={32} />
                     ) : (
                         <TabsContent value="discover" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 ring-0 focus-visible:right-0 max-w-[1600px]">
-                            {/* {
-                        Discover.map(item => (
-                            <div key={item.id} className={`border border-[#EAEBF0] p-4 bg-white rounded-xl w-full ${item.isDone && 'opacity-60'} max-w-[300px] h-[332px]`}>
-                                <div className="flex flex-col h-full gap-12 border border-[#EAEBF0] border-dashed rounded-xl p-4 justify-between">
-                                    <section className="flex flex-row justify-between items-center">
-                                        <item.icon />
-                                        <div className="flex flex-col justify-center items-center">
-                                            <Label className="text-[24px] font-medium">{item.points}</Label>
-                                            <Label className="text-[12px]">Points</Label>
-                                        </div>
-                                    </section>
-
-                                    <section>
-                                        <Label className="text-[20px] font-medium">{item.title}</Label>
-                                        <p className="text-[14px] line-clamp-2">{item.description}</p>
-                                    </section>
-
-                                    <section>
-                                        {
-                                            item.isDone ? (
-                                                <Button variant={'default'} disabled className="text-white w-full h-11">
-                                                    Done
-                                                </Button>
-                                            ) : (
-                                                <Link href={item.link}>
-                                                    <Button variant={'outline'} className="bg-gradient-to-r from-blue-500 via-blue-500 to-purple-500 text-white hover:text-secondary w-full h-11">
-                                                        {
-                                                            (item.id === 'TELEGRAM' || item.id === 'X') ? `Connect ${item.title}` : `Get credential`
-                                                        }
-                                                        <ExternalLinkIcon />
-                                                    </Button>
-                                                </Link>
-                                            )
-                                        }
-                                    </section>
-                                </div>
-                            </div>
-                        ))
-                    } */}
                             {
                                 credentials.filter(credential => credential.category === "Identity").map(item => {
 

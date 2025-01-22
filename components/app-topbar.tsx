@@ -23,7 +23,9 @@ export default function AppTopbar() {
 
     return (
         <div className="flex flex-row w-full items-center justify-between p-4 border-b-[1px] border-b-neutral-200">
-            <Logo />
+            <Link href={"/"}>
+                <Logo />
+            </Link>
             <NavigationMenu className="hidden md:flex">
                 <NavigationMenuList>
                     {
