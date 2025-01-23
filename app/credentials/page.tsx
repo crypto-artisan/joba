@@ -31,6 +31,7 @@ const options = {
     headers: {
         "Content-Type": "application/json",
         "X-API-KEY": talentApiKey,
+        "AUTHORIZATION": talentApiKey
     },
 };
 
@@ -42,12 +43,15 @@ export default function Credentials() {
     const [passport, setPassport] = useState<IPassport | null>(null);
     const [credentials, setCredentials] = useState<IPassportCredential[]>([]);
 
-    async function fetchCredentials(id: number) {
+    const [loading, setLoading] = useState<boolean>(true);
 
+    async function fetchCredentials(id: string) {
+        console.log("==>id", id);
         fetch(`${CREDENTIAL_URL}?passport_id=${id}`, options)
             .then(response => (response.json()))
             .then(async (json) => {
                 setCredentials(json?.passport_credentials);
+                setLoading(false);
             })
             .catch((error) => {
                 console.error(error);
@@ -56,6 +60,7 @@ export default function Credentials() {
 
     useEffect(() => {
         if (address) {
+            setLoading(true);
             fetch(`${PASSPORT_URL}/${address}`, options)
                 .then(response => (response.json()))
                 .then(async (json) => {
@@ -87,55 +92,69 @@ export default function Credentials() {
                     <Button variant={'ghost'} className="rounded-none px-0 pb-6" disabled>Manage</Button>
                 </div>
                 {
-                    credentials.length == 0 ? (
+                    loading ? (
                         <Spinner size={32} />
                     ) : (
-                        <TabsContent value="discover" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 ring-0 focus-visible:right-0 max-w-[1600px]">
-                            {
-                                credentials.filter(credential => credential.category === "Identity").map(item => {
+                        credentials.length === 0 ? (
 
-                                    const type_name = item.type;
-                                    const type_icon = Credentail_Icon[type_name];
-                                    return (
-                                        <div key={item.id} className={`border border-[#EAEBF0] p-4 bg-white rounded-xl w-full ${item.max_score === item.score && 'opacity-60'} md:max-w-[300px] h-[332px]`}>
-                                            <div className="flex flex-col h-full gap-12 border border-[#EAEBF0] border-dashed rounded-xl p-4 justify-between">
-                                                <section className="flex flex-row justify-between items-center">
-                                                    <type_icon.icon />
-                                                    <div className="flex flex-col justify-center items-center">
-                                                        <Label className="text-[24px] font-medium">{item.max_score}</Label>
-                                                        <Label className="text-[12px]">Points</Label>
-                                                    </div>
-                                                </section>
+                            <div className="w-full flex flex-col items-center gap-4 py-4">
+                                <Label className="text-[18px]">You didn't register into Talent Protocol.</Label>
+                                <Link href={"https://login.talentprotocol.com/sign_in"} target="_blank">
+                                    <Button variant={'outline'} className="bg-gradient-to-r from-blue-500 via-blue-500 to-purple-500 text-white hover:text-secondary w-full h-11">
+                                        Register Talent Protocol
+                                    </Button>
+                                </Link>
+                            </div>
 
-                                                <section>
-                                                    <Label className="text-[20px] font-medium">{item.name}</Label>
-                                                    <p className="text-[14px] line-clamp-2">{item.name}</p>
-                                                </section>
+                        ) : (
+                            <TabsContent value="discover" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 ring-0 focus-visible:right-0 max-w-[1600px]">
+                                {
+                                    credentials.filter(credential => credential.category === "Identity").map(item => {
 
-                                                <section>
-                                                    {
-                                                        item.max_score === item.score ? (
-                                                            <Button variant={'default'} disabled className="text-white w-full h-11">
-                                                                Done
-                                                            </Button>
-                                                        ) : (
-                                                            <Link href={"#"}>
-                                                                <Button variant={'outline'} className="bg-gradient-to-r from-blue-500 via-blue-500 to-purple-500 text-white hover:text-secondary w-full h-11">
-                                                                    {
-                                                                        (item.id === 'TELEGRAM' || item.id === 'X') ? `Connect ${item.name}` : `Get credential`
-                                                                    }
-                                                                    <ExternalLinkIcon />
+                                        const type_name = item.type;
+                                        const type_icon = Credentail_Icon[type_name];
+                                        return (
+                                            <div key={item.id} className={`border border-[#EAEBF0] p-4 bg-white rounded-xl w-full ${item.max_score === item.score && 'opacity-60'} md:max-w-[300px] h-[332px]`}>
+                                                <div className="flex flex-col h-full gap-12 border border-[#EAEBF0] border-dashed rounded-xl p-4 justify-between">
+                                                    <section className="flex flex-row justify-between items-center">
+                                                        <type_icon.icon />
+                                                        <div className="flex flex-col justify-center items-center">
+                                                            <Label className="text-[24px] font-medium">{item.max_score}</Label>
+                                                            <Label className="text-[12px]">Points</Label>
+                                                        </div>
+                                                    </section>
+
+                                                    <section>
+                                                        <Label className="text-[20px] font-medium">{item.name}</Label>
+                                                        <p className="text-[14px] line-clamp-2">{item.name}</p>
+                                                    </section>
+
+                                                    <section>
+                                                        {
+                                                            item.max_score === item.score ? (
+                                                                <Button variant={'default'} disabled className="text-white w-full h-11">
+                                                                    Done
                                                                 </Button>
-                                                            </Link>
-                                                        )
-                                                    }
-                                                </section>
+                                                            ) : (
+                                                                <Link href={"#"}>
+                                                                    <Button variant={'outline'} className="bg-gradient-to-r from-blue-500 via-blue-500 to-purple-500 text-white hover:text-secondary w-full h-11">
+                                                                        {
+                                                                            (item.id === 'TELEGRAM' || item.id === 'X') ? `Connect ${item.name}` : `Get credential`
+                                                                        }
+                                                                        <ExternalLinkIcon />
+                                                                    </Button>
+                                                                </Link>
+                                                            )
+                                                        }
+                                                    </section>
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </TabsContent>
+                                        )
+                                    })
+                                }
+
+                            </TabsContent>
+                        )
                     )
                 }
                 <TabsContent value="manage">
