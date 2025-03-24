@@ -12,25 +12,15 @@ npm run dev
 
 
 
-
-
-
-# or
-
+# o
 
 
 yarn dev
 # or
-
-
 pnpm dev
-# or
+# 
 
 bun dev
-
-
-
-
 
 ```
 
